@@ -1,0 +1,58 @@
+[
+  {
+    "id": "throwing-knives",
+    "name": "Throwing Knives",
+    "price": 13,
+    "minRank": 1,
+    "scarce": false
+  },
+  {
+    "id": "concertina-bomb",
+    "name": "Concertina Bomb",
+    "price": 28,
+    "minRank": 10,
+    "scarce": false
+  },
+  {
+    "id": "trip-mine",
+    "name": "Trip Mine",
+    "price": 40,
+    "minRank": 20,
+    "scarce": true
+  },
+  {
+    "id": "beartrap",
+    "name": "Bear Trap",
+    "price": 15,
+    "minRank": 5,
+    "scarce": false
+  },
+  {
+    "id": "decoy",
+    "name": "Decoy",
+    "price": 12,
+    "minRank": 1,
+    "scarce": false
+  },
+  {
+    "id": "chaos-bomb",
+    "name": "Chaos Bomb",
+    "price": 25,
+    "minRank": 15,
+    "scarce": false
+  },
+  {
+    "id": "poison-bomb",
+    "name": "Poison Bomb",
+    "price": 22,
+    "minRank": 12,
+    "scarce": false
+  },
+  {
+    "id": "regeneration-shot",
+    "name": "Regeneration Shot",
+    "price": 35,
+    "minRank": 8,
+    "scarce": true
+  }
+]

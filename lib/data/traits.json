@@ -1,0 +1,10 @@
+[
+  { "id": "necro", "name": "Necro", "points": 1, "minRank": 1 },
+  { "id": "conduit", "name": "Conduit", "points": 4, "minRank": 20 },
+  { "id": "physician", "name": "Physician", "points": 3, "minRank": 15 },
+  { "id": "quartermaster", "name": "Quartermaster", "points": 5, "minRank": 30 },
+  { "id": "packmule", "name": "Packmule", "points": 4, "minRank": 25 },
+  { "id": "greyhound", "name": "Greyhound", "points": 2, "minRank": 10 },
+  { "id": "levelheaded", "name": "Levelheaded", "points": 3, "minRank": 18 },
+  { "id": "bloodless", "name": "Bloodless", "points": 4, "minRank": 22 }
+]

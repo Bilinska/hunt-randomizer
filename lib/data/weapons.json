@@ -1,0 +1,14 @@
+[
+  { "id": "winfield-1873", "name": "Winfield 1873", "size": "medium", "price": 46, "minRank": 1, "scarce": false, "ammoTypes": ["standard", "special"] },
+  { "id": "winfield-1873c", "name": "Winfield 1873C", "size": "medium", "price": 61, "minRank": 12, "scarce": false, "ammoTypes": ["standard", "special"] },
+  { "id": "nagant-m1895", "name": "Nagant M1895", "size": "small", "price": 43, "minRank": 1, "scarce": false, "ammoTypes": ["standard", "special"] },
+  { "id": "nagant-officer", "name": "Nagant M1895 Officer", "size": "small", "price": 61, "minRank": 15, "scarce": false, "ammoTypes": ["standard", "special"] },
+  { "id": "sparks-lrr", "name": "Sparks LRR", "size": "big", "price": 148, "minRank": 30, "scarce": true, "ammoTypes": ["standard", "special"] },
+  { "id": "mosin-nagant", "name": "Mosin-Nagant M1891", "size": "big", "price": 130, "minRank": 25, "scarce": false, "ammoTypes": ["standard", "special"] },
+  { "id": "romero-77", "name": "Romero 77", "size": "medium", "price": 76, "minRank": 20, "scarce": false, "ammoTypes": ["standard", "special"] },
+  { "id": "crown-king", "name": "Crown & King Auto-5", "size": "medium", "price": 92, "minRank": 35, "scarce": true, "ammoTypes": ["standard"] },
+  { "id": "dolch-98", "name": "Dolch 98", "size": "small", "price": 55, "minRank": 18, "scarce": false, "ammoTypes": ["standard", "special"] },
+  { "id": "hunting-bow", "name": "Hunting Bow", "size": "medium", "price": 27, "minRank": 1, "scarce": false, "ammoTypes": ["standard", "special"] },
+  { "id": "combat-axe", "name": "Combat Axe", "size": "small", "price": 12, "minRank": 1, "scarce": false, "ammoTypes": [] },
+  { "id": "machete", "name": "Machete", "size": "small", "price": 9, "minRank": 1, "scarce": false, "ammoTypes": [] }
+]
