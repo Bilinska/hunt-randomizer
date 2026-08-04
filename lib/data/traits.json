@@ -1,10 +1,303 @@
 [
-  { "id": "necro", "name": "Necro", "points": 1, "minRank": 1 },
-  { "id": "conduit", "name": "Conduit", "points": 4, "minRank": 20 },
-  { "id": "physician", "name": "Physician", "points": 3, "minRank": 15 },
-  { "id": "quartermaster", "name": "Quartermaster", "points": 5, "minRank": 30 },
-  { "id": "packmule", "name": "Packmule", "points": 4, "minRank": 25 },
-  { "id": "greyhound", "name": "Greyhound", "points": 2, "minRank": 10 },
-  { "id": "levelheaded", "name": "Levelheaded", "points": 3, "minRank": 18 },
-  { "id": "bloodless", "name": "Bloodless", "points": 4, "minRank": 22 }
+  {
+    "id": "adrenaline",
+    "name": "Adrenaline",
+    "points": 1,
+    "minRank": 1,
+    "image": "adrenaline.png"
+  },
+  {
+    "id": "ambidextrous",
+    "name": "Ambidextrous",
+    "points": 3,
+    "minRank": 34
+  },
+  {
+    "id": "assailant",
+    "name": "Assailant",
+    "points": 1,
+    "minRank": 18
+  },
+  {
+    "id": "beastface",
+    "name": "Beastface",
+    "points": 4,
+    "minRank": 42
+  },
+  {
+    "id": "blade-seer",
+    "name": "Blade Seer",
+    "points": 1,
+    "minRank": 54
+  },
+  {
+    "id": "bloodless",
+    "name": "Bloodless",
+    "points": 3,
+    "minRank": 1
+  },
+  {
+    "id": "bolt-thrower",
+    "name": "Bolt Thrower",
+    "points": 3,
+    "minRank": 32
+  },
+  {
+    "id": "bulletgrubber",
+    "name": "Bulletgrubber",
+    "points": 4,
+    "minRank": 26
+  },
+  {
+    "id": "bulwark",
+    "name": "Bulwark",
+    "points": 2,
+    "minRank": 1
+  },
+  {
+    "id": "conduit",
+    "name": "Conduit",
+    "points": 5,
+    "minRank": 38
+  },
+  {
+    "id": "dauntless",
+    "name": "Dauntless",
+    "points": 1,
+    "minRank": 64
+  },
+  {
+    "id": "decoy-supply",
+    "name": "Decoy Supply",
+    "points": 1,
+    "minRank": 53
+  },
+  {
+    "id": "determination",
+    "name": "Determination",
+    "points": 4,
+    "minRank": 1
+  },
+  {
+    "id": "doctor",
+    "name": "Doctor",
+    "points": 9,
+    "minRank": 1
+  },
+  {
+    "id": "fanning",
+    "name": "Fanning",
+    "points": 8,
+    "minRank": 12
+  },
+  {
+    "id": "fast-fingers",
+    "name": "Fast Fingers",
+    "points": 4,
+    "minRank": 11
+  },
+  {
+    "id": "frontiersman",
+    "name": "Frontiersman",
+    "points": 7,
+    "minRank": 57
+  },
+  {
+    "id": "gator-legs",
+    "name": "Gator Legs",
+    "points": 3,
+    "minRank": 56
+  },
+  {
+    "id": "ghoul",
+    "name": "Ghoul",
+    "points": 3,
+    "minRank": 20
+  },
+  {
+    "id": "greyhound",
+    "name": "Greyhound",
+    "points": 5,
+    "minRank": 3
+  },
+  {
+    "id": "hornskin",
+    "name": "Hornskin",
+    "points": 3,
+    "minRank": 1
+  },
+  {
+    "id": "hundred-hands",
+    "name": "Hundred Hands",
+    "points": 2,
+    "minRank": 51
+  },
+  {
+    "id": "iron-eye",
+    "name": "Iron Eye",
+    "points": 3,
+    "minRank": 9
+  },
+  {
+    "id": "kiteskin",
+    "name": "Kiteskin",
+    "points": 1,
+    "minRank": 16
+  },
+  {
+    "id": "levering",
+    "name": "Levering",
+    "points": 4,
+    "minRank": 6
+  },
+  {
+    "id": "lightfoot",
+    "name": "Lightfoot",
+    "points": 5,
+    "minRank": 47
+  },
+  {
+    "id": "magpie",
+    "name": "Magpie",
+    "points": 1,
+    "minRank": 1
+  },
+  {
+    "id": "martialist",
+    "name": "Martialist",
+    "points": 2,
+    "minRank": 28
+  },
+  {
+    "id": "mithridatist",
+    "name": "Mithridatist",
+    "points": 3,
+    "minRank": 40
+  },
+  {
+    "id": "necromancer",
+    "name": "Necromancer",
+    "points": 4,
+    "minRank": 1
+  },
+  {
+    "id": "night-owl",
+    "name": "Night Owl",
+    "points": 3,
+    "minRank": 1
+  },
+  {
+    "id": "noble",
+    "name": "Noble",
+    "points": 5,
+    "minRank": 1
+  },
+  {
+    "id": "pack-animal",
+    "name": "Pack Animal",
+    "points": 2,
+    "minRank": 1
+  },
+  {
+    "id": "packmule",
+    "name": "Packmule",
+    "points": 4,
+    "minRank": 1
+  },
+  {
+    "id": "physician",
+    "name": "Physician",
+    "points": 5,
+    "minRank": 45
+  },
+  {
+    "id": "pitcher",
+    "name": "Pitcher",
+    "points": 6,
+    "minRank": 61
+  },
+  {
+    "id": "poacher",
+    "name": "Poacher",
+    "points": 1,
+    "minRank": 36
+  },
+  {
+    "id": "poison-sense",
+    "name": "Poison Sense",
+    "points": 1,
+    "minRank": 59
+  },
+  {
+    "id": "quartermaster",
+    "name": "Quartermaster",
+    "points": 6,
+    "minRank": 1
+  },
+  {
+    "id": "resilience",
+    "name": "Resilience",
+    "points": 3,
+    "minRank": 4
+  },
+  {
+    "id": "salveskin",
+    "name": "Salveskin",
+    "points": 2,
+    "minRank": 1
+  },
+  {
+    "id": "scopesmith",
+    "name": "Scopesmith",
+    "points": 2,
+    "minRank": 22
+  },
+  {
+    "id": "serpent",
+    "name": "Serpent",
+    "points": 4,
+    "minRank": 14
+  },
+  {
+    "id": "silent-killer",
+    "name": "Silent Killer",
+    "points": 4,
+    "minRank": 62
+  },
+  {
+    "id": "steady-aim",
+    "name": "Steady Aim",
+    "points": 2,
+    "minRank": 30
+  },
+  {
+    "id": "vigilant",
+    "name": "Vigilant",
+    "points": 1,
+    "minRank": 36
+  },
+  {
+    "id": "vigor",
+    "name": "Vigor",
+    "points": 3,
+    "minRank": 63
+  },
+  {
+    "id": "vulture",
+    "name": "Vulture",
+    "points": 2,
+    "minRank": 24
+  },
+  {
+    "id": "whispersmith",
+    "name": "Whispersmith",
+    "points": 1,
+    "minRank": 49
+  },
+  {
+    "id": "witness",
+    "name": "Witness",
+    "points": 5,
+    "minRank": 44
+  }
 ]

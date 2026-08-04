@@ -11,8 +11,8 @@ const DEFAULT_SETTINGS: RandomizerSettings = {
   weaponSlots: ["big", "medium"],
   lockedSlots: {},
   bannedItemIds: [],
-  maxTools: 1,
-  maxConsumables: 2
+  maxTools: 4,
+  maxConsumables: 4
 };
 
 export default function OverlaySetupPage() {

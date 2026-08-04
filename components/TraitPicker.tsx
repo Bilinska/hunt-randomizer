@@ -13,10 +13,13 @@ export function TraitPicker({ traits, usedPoints, maxPoints }: Props) {
         border: "1px solid var(--border)",
         borderRadius: "var(--radius)",
         padding: "10px 12px",
-        background: "var(--surface)"
+        background: "var(--surface)",
       }}
     >
-      <div style={{ fontSize: 11, color: "var(--text-muted)", marginBottom: 6 }}>
+      <div style={{ fontSize: 14, marginBottom: 6 }}>Traits</div>
+      <div
+        style={{ fontSize: 11, color: "var(--text-muted)", marginBottom: 6 }}
+      >
         трейти (очки: {usedPoints} / {maxPoints})
       </div>
       <div style={{ display: "flex", gap: 6, flexWrap: "wrap" }}>
@@ -30,7 +33,7 @@ export function TraitPicker({ traits, usedPoints, maxPoints }: Props) {
               fontSize: 11,
               border: "1px solid var(--border-strong)",
               borderRadius: 12,
-              padding: "3px 10px"
+              padding: "3px 10px",
             }}
           >
             {trait.name}

@@ -1,14 +1,410 @@
 [
-  { "id": "winfield-1873", "name": "Winfield 1873", "size": "medium", "price": 46, "minRank": 1, "scarce": false, "ammoTypes": ["standard", "special"] },
-  { "id": "winfield-1873c", "name": "Winfield 1873C", "size": "medium", "price": 61, "minRank": 12, "scarce": false, "ammoTypes": ["standard", "special"] },
-  { "id": "nagant-m1895", "name": "Nagant M1895", "size": "small", "price": 43, "minRank": 1, "scarce": false, "ammoTypes": ["standard", "special"] },
-  { "id": "nagant-officer", "name": "Nagant M1895 Officer", "size": "small", "price": 61, "minRank": 15, "scarce": false, "ammoTypes": ["standard", "special"] },
-  { "id": "sparks-lrr", "name": "Sparks LRR", "size": "big", "price": 148, "minRank": 30, "scarce": true, "ammoTypes": ["standard", "special"] },
-  { "id": "mosin-nagant", "name": "Mosin-Nagant M1891", "size": "big", "price": 130, "minRank": 25, "scarce": false, "ammoTypes": ["standard", "special"] },
-  { "id": "romero-77", "name": "Romero 77", "size": "medium", "price": 76, "minRank": 20, "scarce": false, "ammoTypes": ["standard", "special"] },
-  { "id": "crown-king", "name": "Crown & King Auto-5", "size": "medium", "price": 92, "minRank": 35, "scarce": true, "ammoTypes": ["standard"] },
-  { "id": "dolch-98", "name": "Dolch 98", "size": "small", "price": 55, "minRank": 18, "scarce": false, "ammoTypes": ["standard", "special"] },
-  { "id": "hunting-bow", "name": "Hunting Bow", "size": "medium", "price": 27, "minRank": 1, "scarce": false, "ammoTypes": ["standard", "special"] },
-  { "id": "combat-axe", "name": "Combat Axe", "size": "small", "price": 12, "minRank": 1, "scarce": false, "ammoTypes": [] },
-  { "id": "machete", "name": "Machete", "size": "small", "price": 9, "minRank": 1, "scarce": false, "ammoTypes": [] }
+  {
+    "id": "berthier-mle-1892",
+    "name": "Berthier Mle 1892",
+    "size": "big",
+    "price": 356,
+    "minRank": 1,
+    "scarce": false,
+    "ammoTypes": [
+      "long"
+    ]
+  },
+  {
+    "id": "bomb-lance",
+    "name": "Bomb Lance",
+    "size": "big",
+    "price": 199,
+    "minRank": 1,
+    "scarce": false,
+    "ammoTypes": [
+      "special"
+    ]
+  },
+  {
+    "id": "caldwell-rival-78",
+    "name": "Caldwell Rival 78",
+    "size": "big",
+    "price": 150,
+    "minRank": 1,
+    "scarce": false,
+    "ammoTypes": [
+      "shotgun"
+    ]
+  },
+  {
+    "id": "crown-king-auto-5",
+    "name": "Crown & King Auto-5",
+    "size": "big",
+    "price": 600,
+    "minRank": 1,
+    "scarce": false,
+    "ammoTypes": [
+      "shotgun"
+    ]
+  },
+  {
+    "id": "drilling",
+    "name": "Drilling",
+    "size": "big",
+    "price": 510,
+    "minRank": 1,
+    "scarce": false,
+    "ammoTypes": [
+      "medium",
+      "shotgun"
+    ]
+  },
+  {
+    "id": "lebel-1886",
+    "name": "Lebel 1886",
+    "size": "big",
+    "price": 397,
+    "minRank": 1,
+    "scarce": false,
+    "ammoTypes": [
+      "long"
+    ]
+  },
+  {
+    "id": "martini-henry-ic1",
+    "name": "Martini-Henry IC1",
+    "size": "big",
+    "price": 122,
+    "minRank": 1,
+    "scarce": false,
+    "ammoTypes": [
+      "long"
+    ]
+  },
+  {
+    "id": "mosin-nagant-m1891",
+    "name": "Mosin-Nagant M1891",
+    "size": "big",
+    "price": 490,
+    "minRank": 1,
+    "scarce": false,
+    "ammoTypes": [
+      "long"
+    ]
+  },
+  {
+    "id": "nitro-express-rifle",
+    "name": "Nitro Express Rifle",
+    "size": "big",
+    "price": 1015,
+    "minRank": 1,
+    "scarce": false,
+    "ammoTypes": [
+      "special"
+    ]
+  },
+  {
+    "id": "romero-77",
+    "name": "Romero 77",
+    "size": "big",
+    "price": 66,
+    "minRank": 1,
+    "scarce": false,
+    "ammoTypes": [
+      "shotgun"
+    ]
+  },
+  {
+    "id": "romero-77-alamo",
+    "name": "Romero 77 Alamo",
+    "size": "big",
+    "price": 98,
+    "minRank": 1,
+    "scarce": false,
+    "ammoTypes": [
+      "shotgun"
+    ]
+  },
+  {
+    "id": "sparks-lrr",
+    "name": "Sparks LRR",
+    "size": "big",
+    "price": 130,
+    "minRank": 1,
+    "scarce": false,
+    "ammoTypes": [
+      "long"
+    ]
+  },
+  {
+    "id": "specter-1882",
+    "name": "Specter 1882",
+    "size": "big",
+    "price": 188,
+    "minRank": 1,
+    "scarce": false,
+    "ammoTypes": [
+      "shotgun"
+    ]
+  },
+  {
+    "id": "springfield-1866",
+    "name": "Springfield 1866",
+    "size": "big",
+    "price": 38,
+    "minRank": 1,
+    "scarce": false,
+    "ammoTypes": [
+      "medium"
+    ]
+  },
+  {
+    "id": "springfield-m1892-krag",
+    "name": "Springfield M1892 Krag",
+    "size": "big",
+    "price": 376,
+    "minRank": 1,
+    "scarce": false,
+    "ammoTypes": [
+      "long"
+    ]
+  },
+  {
+    "id": "vetterli-71-karabiner",
+    "name": "Vetterli 71 Karabiner",
+    "size": "big",
+    "price": 105,
+    "minRank": 1,
+    "scarce": false,
+    "ammoTypes": [
+      "medium"
+    ]
+  },
+  {
+    "id": "winfield-1887-terminus",
+    "name": "Winfield 1887 Terminus",
+    "size": "big",
+    "price": 238,
+    "minRank": 1,
+    "scarce": false,
+    "ammoTypes": [
+      "shotgun"
+    ]
+  },
+  {
+    "id": "winfield-1893-slate",
+    "name": "Winfield 1893 Slate",
+    "size": "big",
+    "price": 203,
+    "minRank": 1,
+    "scarce": false,
+    "ammoTypes": [
+      "shotgun"
+    ]
+  },
+  {
+    "id": "winfield-m1873",
+    "name": "Winfield M1873",
+    "size": "big",
+    "price": 75,
+    "minRank": 1,
+    "scarce": false,
+    "ammoTypes": [
+      "compact"
+    ]
+  },
+  {
+    "id": "winfield-m1873c",
+    "name": "Winfield M1873C",
+    "size": "big",
+    "price": 41,
+    "minRank": 1,
+    "scarce": false,
+    "ammoTypes": [
+      "compact"
+    ]
+  },
+  {
+    "id": "winfield-m1876-centennial",
+    "name": "Winfield M1876 Centennial",
+    "size": "big",
+    "price": 157,
+    "minRank": 1,
+    "scarce": false,
+    "ammoTypes": [
+      "medium"
+    ]
+  },
+  {
+    "id": "combat-axe",
+    "name": "Combat Axe",
+    "size": "medium",
+    "price": 5,
+    "minRank": 1,
+    "scarce": false,
+    "ammoTypes": []
+  },
+  {
+    "id": "hunting-bow",
+    "name": "Hunting Bow",
+    "size": "medium",
+    "price": 57,
+    "minRank": 1,
+    "scarce": false,
+    "ammoTypes": [
+      "special"
+    ]
+  },
+  {
+    "id": "katana",
+    "name": "Katana",
+    "size": "medium",
+    "price": null,
+    "minRank": 1,
+    "scarce": false,
+    "ammoTypes": []
+  },
+  {
+    "id": "railroad-hammer",
+    "name": "Railroad Hammer",
+    "size": "medium",
+    "price": null,
+    "minRank": 1,
+    "scarce": false,
+    "ammoTypes": []
+  },
+  {
+    "id": "baseball-bat",
+    "name": "Baseball Bat",
+    "size": "small",
+    "price": 40,
+    "minRank": 1,
+    "scarce": false,
+    "ammoTypes": []
+  },
+  {
+    "id": "bornheim-no-3",
+    "name": "Bornheim No. 3",
+    "size": "small",
+    "price": 146,
+    "minRank": 1,
+    "scarce": false,
+    "ammoTypes": [
+      "compact"
+    ]
+  },
+  {
+    "id": "caldwell-92-new-army",
+    "name": "Caldwell 92 New Army",
+    "size": "small",
+    "price": 90,
+    "minRank": 1,
+    "scarce": false,
+    "ammoTypes": [
+      "compact"
+    ]
+  },
+  {
+    "id": "caldwell-conversion-pistol",
+    "name": "Caldwell Conversion Pistol",
+    "size": "small",
+    "price": 55,
+    "minRank": 1,
+    "scarce": false,
+    "ammoTypes": [
+      "compact"
+    ]
+  },
+  {
+    "id": "caldwell-pax",
+    "name": "Caldwell Pax",
+    "size": "small",
+    "price": 80,
+    "minRank": 1,
+    "scarce": false,
+    "ammoTypes": [
+      "medium"
+    ]
+  },
+  {
+    "id": "cavalry-saber",
+    "name": "Cavalry Saber",
+    "size": "small",
+    "price": 50,
+    "minRank": 1,
+    "scarce": false,
+    "ammoTypes": []
+  },
+  {
+    "id": "dolch-96",
+    "name": "Dolch 96",
+    "size": "small",
+    "price": 690,
+    "minRank": 1,
+    "scarce": false,
+    "ammoTypes": [
+      "special"
+    ]
+  },
+  {
+    "id": "hand-crossbow",
+    "name": "Hand Crossbow",
+    "size": "small",
+    "price": 30,
+    "minRank": 1,
+    "scarce": false,
+    "ammoTypes": [
+      "special"
+    ]
+  },
+  {
+    "id": "lemat-mark-ii",
+    "name": "LeMat Mark II",
+    "size": "small",
+    "price": 83,
+    "minRank": 1,
+    "scarce": false,
+    "ammoTypes": [
+      "compact",
+      "shotgun"
+    ]
+  },
+  {
+    "id": "machete",
+    "name": "Machete",
+    "size": "small",
+    "price": 30,
+    "minRank": 1,
+    "scarce": false,
+    "ammoTypes": []
+  },
+  {
+    "id": "nagant-m1895",
+    "name": "Nagant M1895",
+    "size": "small",
+    "price": 24,
+    "minRank": 1,
+    "scarce": false,
+    "ammoTypes": [
+      "compact"
+    ]
+  },
+  {
+    "id": "nagant-m1895-officer",
+    "name": "Nagant M1895 Officer",
+    "size": "small",
+    "price": 96,
+    "minRank": 1,
+    "scarce": false,
+    "ammoTypes": [
+      "compact"
+    ]
+  },
+  {
+    "id": "scottfield-model-3",
+    "name": "Scottfield Model 3",
+    "size": "small",
+    "price": 77,
+    "minRank": 1,
+    "scarce": false,
+    "ammoTypes": [
+      "medium"
+    ]
+  }
 ]

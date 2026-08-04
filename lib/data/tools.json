@@ -1,58 +1,149 @@
 [
   {
-    "id": "throwing-knives",
-    "name": "Throwing Knives",
-    "price": 13,
+    "id": "alert-trip-mine",
+    "name": "Alert Trip Mine",
+    "price": 30,
+    "minRank": 35,
+    "scarce": false
+  },
+  {
+    "id": "bear-trap",
+    "name": "Bear Trap",
+    "price": 70,
+    "minRank": 35,
+    "scarce": false
+  },
+  {
+    "id": "blank-fire-decoys",
+    "name": "Blank Fire Decoys",
+    "price": 45,
+    "minRank": 52,
+    "scarce": false
+  },
+  {
+    "id": "choke-bomb",
+    "name": "Choke Bomb",
+    "price": 25,
     "minRank": 1,
     "scarce": false
   },
   {
     "id": "concertina-bomb",
-    "name": "Concertina Bomb",
-    "price": 28,
-    "minRank": 10,
+    "name": "Concertina Trip Mine",
+    "price": 90,
+    "minRank": 29,
     "scarce": false
   },
   {
-    "id": "trip-mine",
-    "name": "Trip Mine",
-    "price": 40,
-    "minRank": 20,
-    "scarce": true
-  },
-  {
-    "id": "beartrap",
-    "name": "Bear Trap",
-    "price": 15,
-    "minRank": 5,
+    "id": "decoy-fuses",
+    "name": "Decoy Fuses",
+    "price": 30,
+    "minRank": 52,
     "scarce": false
   },
   {
-    "id": "decoy",
-    "name": "Decoy",
-    "price": 12,
+    "id": "decoys",
+    "name": "Decoys",
+    "price": 6,
     "minRank": 1,
     "scarce": false
   },
   {
-    "id": "chaos-bomb",
-    "name": "Chaos Bomb",
-    "price": 25,
-    "minRank": 15,
+    "id": "dusters",
+    "name": "Dusters",
+    "price": 30,
+    "minRank": 1,
     "scarce": false
   },
   {
-    "id": "poison-bomb",
-    "name": "Poison Bomb",
-    "price": 22,
-    "minRank": 12,
+    "id": "derringer-pennyshot",
+    "name": "Derringer Pennyshot",
+    "price": 63,
+    "minRank": 17,
     "scarce": false
   },
   {
-    "id": "regeneration-shot",
-    "name": "Regeneration Shot",
-    "price": 35,
+    "id": "first-aid-kit",
+    "name": "First Aid Kit",
+    "price": 30,
+    "minRank": 1,
+    "scarce": false
+  },
+  {
+    "id": "flare-pistol",
+    "name": "Flare Pistol",
+    "price": 36,
+    "minRank": 23,
+    "scarce": false
+  },
+  {
+    "id": "fuses",
+    "name": "Fusees",
+    "price": 10,
+    "minRank": 1,
+    "scarce": false
+  },
+  {
+    "id": "heavy-knife",
+    "name": "Heavy Knife",
+    "price": 20,
+    "minRank": 5,
+    "scarce": false
+  },
+  {
+    "id": "knife",
+    "name": "Knife",
+    "price": 40,
+    "minRank": 1,
+    "scarce": false
+  },
+  {
+    "id": "knuckle-knife",
+    "name": "Knuckle Knife",
+    "price": 50,
+    "minRank": 25,
+    "scarce": false
+  },
+  {
+    "id": "poison-trip-mine",
+    "name": "Poison Trip Mine",
+    "price": 60,
+    "minRank": 29,
+    "scarce": false
+  },
+  {
+    "id": "quad-derringer",
+    "name": "Quad Derringer",
+    "price": 30,
+    "minRank": 1,
+    "scarce": false
+  },
+  {
+    "id": "spyglass",
+    "name": "Spyglass",
+    "price": 8,
+    "minRank": 1,
+    "scarce": false
+  },
+  {
+    "id": "throwing-axes",
+    "name": "Throwing Axes",
+    "price": 50,
     "minRank": 8,
-    "scarce": true
+    "scarce": false
+  },
+  {
+    "id": "throwing-knives",
+    "name": "Throwing Knives",
+    "price": 30,
+    "minRank": 2,
+    "scarce": false
+  },
+  {
+    "id": "throwing-spear",
+    "name": "Throwing Spear",
+    "price": 150,
+    "minRank": 33,
+    "scarce": false
   }
 ]

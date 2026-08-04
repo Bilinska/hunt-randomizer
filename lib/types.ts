@@ -8,6 +8,7 @@ export interface Weapon {
   minRank: number;
   scarce: boolean;
   ammoTypes: string[];
+  image?: string;
 }
 
 export interface Tool {
@@ -16,6 +17,7 @@ export interface Tool {
   price: number;
   minRank: number;
   scarce: boolean;
+  image?: string;
 }
 
 export interface Consumable {
@@ -24,6 +26,7 @@ export interface Consumable {
   price: number;
   minRank: number;
   scarce: boolean;
+  image?: string;
 }
 
 export interface Trait {
@@ -31,6 +34,7 @@ export interface Trait {
   name: string;
   points: number;
   minRank: number;
+  image?: string;
 }
 
 export type WeaponSlotConfig = WeaponSize[]; // напр. ["big", "medium"]
@@ -43,7 +47,7 @@ export interface RandomizerSettings {
   lockedSlots: Record<string, string | null>; // slotKey -> itemId, якщо заблоковано
   bannedItemIds: string[];
   maxConsumables: number; // 0-4
-  maxTools: number; // 0-1
+  maxTools: number; // 0-4
 }
 
 export interface Loadout {

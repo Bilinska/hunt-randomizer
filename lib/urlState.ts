@@ -53,8 +53,8 @@ export function decodeSettingsFromQuery(
       : ["big", "medium"]) as WeaponSize[],
     lockedSlots,
     bannedItemIds: banRaw ? banRaw.split(",") : [],
-    maxTools: Number(searchParams.get("tools") ?? "1"),
-    maxConsumables: Number(searchParams.get("cons") ?? "2")
+    maxTools: Number(searchParams.get("tools") ?? "4"),
+    maxConsumables: Number(searchParams.get("cons") ?? "4")
   };
 }
 

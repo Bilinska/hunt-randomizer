@@ -18,8 +18,8 @@ const DEFAULT_SETTINGS: RandomizerSettings = {
   weaponSlots: ["big", "medium"],
   lockedSlots: {},
   bannedItemIds: [],
-  maxTools: 1,
-  maxConsumables: 2
+  maxTools: 4,
+  maxConsumables: 4
 };
 
 export default function HomePage() {
@@ -139,7 +139,7 @@ export default function HomePage() {
         })}
       </div>
 
-      <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: 8, marginBottom: 12 }}>
+      <div style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: 8, marginBottom: 12 }}>
         {loadout?.tools.map((t, i) => (
           <ConsumableSlot key={`tool-${i}`} label="tool" name={t?.name ?? null} />
         ))}

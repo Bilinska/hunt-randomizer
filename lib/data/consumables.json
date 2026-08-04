@@ -1,8 +1,198 @@
 [
-  { "id": "medkit", "name": "Medkit", "price": 15, "minRank": 1, "scarce": false },
-  { "id": "vitality-shot", "name": "Vitality Shot", "price": 20, "minRank": 5, "scarce": false },
-  { "id": "antidote-shot", "name": "Antidote Shot", "price": 12, "minRank": 1, "scarce": false },
-  { "id": "fire-bomb", "name": "Fire Bomb", "price": 18, "minRank": 8, "scarce": false },
-  { "id": "dynamite-bundle", "name": "Dynamite Bundle", "price": 24, "minRank": 12, "scarce": false },
-  { "id": "smelling-salts", "name": "Smelling Salts", "price": 10, "minRank": 1, "scarce": false }
+  {
+    "id": "ammo-box",
+    "name": "Ammo Box",
+    "price": 65,
+    "minRank": 1,
+    "scarce": false
+  },
+  {
+    "id": "big-dynamite-bundle",
+    "name": "Big Dynamite Bundle",
+    "price": 110,
+    "minRank": 58,
+    "scarce": false
+  },
+  {
+    "id": "choke-beetle",
+    "name": "Choke Beetle",
+    "price": 22,
+    "minRank": 46,
+    "scarce": false
+  },
+  {
+    "id": "fire-beetle",
+    "name": "Fire Beetle",
+    "price": 57,
+    "minRank": 46,
+    "scarce": false
+  },
+  {
+    "id": "starker-beetle",
+    "name": "Stalker Beetle",
+    "price": 45,
+    "minRank": 27,
+    "scarce": false
+  },
+  {
+    "id": "chaos-bomb",
+    "name": "Chaos Bomb",
+    "price": 15,
+    "minRank": 31,
+    "scarce": false
+  },
+  {
+    "id": "concertina-bomb",
+    "name": "Concertina Bomb",
+    "price": 48,
+    "minRank": 37,
+    "scarce": false
+  },
+  {
+    "id": "dynamite-bundle",
+    "name": "Dynamite Bundle",
+    "price": 75,
+    "minRank": 15,
+    "scarce": false
+  },
+  {
+    "id": "dynamite-stick",
+    "name": "Dynamite Stick",
+    "price": 18,
+    "minRank": 1,
+    "scarce": false
+  },
+  {
+    "id": "fire-bomb",
+    "name": "Fire Bomb",
+    "price": 30,
+    "minRank": 1,
+    "scarce": false
+  },
+  {
+    "id": "flash-bomb",
+    "name": "Flash Bomb",
+    "price": 25,
+    "minRank": 50,
+    "scarce": false
+  },
+  {
+    "id": "frag-bomb",
+    "name": "Frag Bomb",
+    "price": 103,
+    "minRank": 41,
+    "scarce": false
+  },
+  {
+    "id": "hellfire-bomb",
+    "name": "Hellfire Bomb",
+    "price": 70,
+    "minRank": 43,
+    "scarce": false
+  },
+  {
+    "id": "hive-bomb",
+    "name": "Hive Bomb",
+    "price": 40,
+    "minRank": 48,
+    "scarce": false
+  },
+  {
+    "id": "liquid-fire-bomb",
+    "name": "Liquid Fire Bomb",
+    "price": 35,
+    "minRank": 43,
+    "scarce": false
+  },
+  {
+    "id": "medical-pack",
+    "name": "Medical Pack",
+    "price": 35,
+    "minRank": 1,
+    "scarce": false
+  },
+  {
+    "id": "poison-bomb",
+    "name": "Poison Bomb",
+    "price": 25,
+    "minRank": 39,
+    "scarce": false
+  },
+  {
+    "id": "tool-box",
+    "name": "Tool Box",
+    "price": 70,
+    "minRank": 55,
+    "scarce": false
+  },
+  {
+    "id": "sticky-bomb",
+    "name": "Sticky Bomb",
+    "price": 64,
+    "minRank": 1,
+    "scarce": false
+  },
+  {
+    "id": "waxed-dynamite-stick",
+    "name": "Waxed Dynamite Stick",
+    "price": 24,
+    "minRank": 19,
+    "scarce": false
+  },
+  {
+    "id": "antidote-shot",
+    "name": "Antidote Shot",
+    "price": 55,
+    "minRank": 21,
+    "scarce": false
+  },
+  {
+    "id": "regeneration-shot",
+    "name": "Regeneration Shot",
+    "price": 105,
+    "minRank": 13,
+    "scarce": false
+  },
+  {
+    "id": "stamina-shot",
+    "name": "Stamina Shot",
+    "price": 100,
+    "minRank": 10,
+    "scarce": false
+  },
+  {
+    "id": "vitality-shot",
+    "name": "Vitality Shot",
+    "price": 85,
+    "minRank": 7,
+    "scarce": false
+  },
+  {
+    "id": "antidote-shot-weak",
+    "name": "Antidote Shot (Weak)",
+    "price": 30,
+    "minRank": 1,
+    "scarce": false
+  },
+  {
+    "id": "regeneration-shot-weak",
+    "name": "Regeneration Shot (Weak)",
+    "price": 40,
+    "minRank": 1,
+    "scarce": false
+  },
+  {
+    "id": "stamina-shot-weak",
+    "name": "Stamina Shot (Weak)",
+    "price": 60,
+    "minRank": 1,
+    "scarce": false
+  },
+  {
+    "id": "vitality-shot-weak",
+    "name": "Vitality Shot (Weak)",
+    "price": 20,
+    "minRank": 1,
+    "scarce": false
+  }
 ]
