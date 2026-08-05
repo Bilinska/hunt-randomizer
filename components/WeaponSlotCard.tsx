@@ -18,7 +18,7 @@ export function WeaponSlotCard({
   isLocked,
   onLockToggle,
   onReroll,
-  onBan
+  onBan,
 }: Props) {
   return (
     <div
@@ -27,13 +27,17 @@ export function WeaponSlotCard({
         borderRadius: "var(--radius)",
         padding: "14px 10px",
         textAlign: "center",
-        background: "var(--surface)"
+        background: "var(--surface)",
       }}
     >
-      <div style={{ fontSize: 11, color: "var(--text-muted)", marginBottom: 6 }}>
+      <div
+        style={{ fontSize: 11, color: "var(--text-muted)", marginBottom: 6 }}
+      >
         слот · {size}
       </div>
-      <div style={{ display: "flex", justifyContent: "center", marginBottom: 8 }}>
+      <div
+        style={{ display: "flex", justifyContent: "center", marginBottom: 8 }}
+      >
         {weapon ? (
           <ItemImage
             category="weapons"
@@ -49,13 +53,20 @@ export function WeaponSlotCard({
               width: 56,
               height: 56,
               borderRadius: 6,
-              border: "1px dashed var(--border)"
+              border: "1px dashed var(--border)",
             }}
           />
         )}
       </div>
       <div style={{ fontSize: 14 }}>{weapon ? weapon.name : "—"}</div>
-      <div style={{ display: "flex", justifyContent: "center", gap: 10, marginTop: 10 }}>
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "center",
+          gap: 10,
+          marginTop: 10,
+        }}
+      >
         <button onClick={onLockToggle} aria-label="lock slot">
           {isLocked ? "🔒" : "🔓"}
         </button>

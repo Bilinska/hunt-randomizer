@@ -21,7 +21,14 @@ interface Props {
  * Якщо жодного файлу не знайдено — рендерить нейтральну заглушку,
  * щоб інтерфейс не ламався, поки зображення ще не додано.
  */
-export function ItemImage({ category, id, image, alt, size = 40, style }: Props) {
+export function ItemImage({
+  category,
+  id,
+  image,
+  alt,
+  size = 40,
+  style,
+}: Props) {
   const candidates = buildImageCandidates(category, id, image);
   const [index, setIndex] = useState(0);
   const [failed, setFailed] = useState(candidates.length === 0);
@@ -48,7 +55,7 @@ export function ItemImage({ category, id, image, alt, size = 40, style }: Props)
           fontSize: Math.max(10, size * 0.4),
           color: "var(--text-muted)",
           flexShrink: 0,
-          ...style
+          ...style,
         }}
       >
         ?
@@ -70,7 +77,7 @@ export function ItemImage({ category, id, image, alt, size = 40, style }: Props)
         borderRadius: 6,
         flexShrink: 0,
         background: "var(--border)",
-        ...style
+        ...style,
       }}
       onError={() => {
         setIndex((prev) => {

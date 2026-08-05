@@ -15,13 +15,17 @@ export function ConsumableSlot({ label, category, item }: Props) {
         borderRadius: "var(--radius)",
         padding: "10px",
         textAlign: "center",
-        background: "var(--surface)"
+        background: "var(--surface)",
       }}
     >
-      <div style={{ fontSize: 11, color: "var(--text-muted)", marginBottom: 4 }}>
+      <div
+        style={{ fontSize: 11, color: "var(--text-muted)", marginBottom: 4 }}
+      >
         {label}
       </div>
-      <div style={{ display: "flex", justifyContent: "center", marginBottom: 6 }}>
+      <div
+        style={{ display: "flex", justifyContent: "center", marginBottom: 6 }}
+      >
         {item ? (
           <ItemImage
             category={category}
@@ -37,7 +41,7 @@ export function ConsumableSlot({ label, category, item }: Props) {
               width: 36,
               height: 36,
               borderRadius: 6,
-              border: "1px dashed var(--border)"
+              border: "1px dashed var(--border)",
             }}
           />
         )}

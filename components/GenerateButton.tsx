@@ -15,7 +15,7 @@ export function GenerateButton({ onClick }: Props) {
         fontSize: 14,
         fontWeight: 600,
         background: "var(--surface-2)",
-        color: "var(--text-primary)"
+        color: "var(--text-primary)",
       }}
     >
       🎲 generate loadout
