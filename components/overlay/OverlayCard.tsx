@@ -1,4 +1,5 @@
 import type { Loadout } from "@/lib/types";
+import { ItemImage } from "@/components/ItemImage";
 
 interface Props {
   loadout: Loadout | null;
@@ -38,13 +39,19 @@ export function OverlayCard({ loadout }: Props) {
           <div
             key={i}
             style={{
+              display: "flex",
+              alignItems: "center",
+              gap: 8,
               border: "1px solid var(--border)",
               borderRadius: "var(--radius)",
               padding: "8px 10px",
               fontSize: 13
             }}
           >
-            {w ? w.name : "—"}
+            {w && (
+              <ItemImage category="weapons" id={w.id} image={w.image} alt={w.name} size={28} />
+            )}
+            <span>{w ? w.name : "—"}</span>
           </div>
         ))}
       </div>
@@ -55,6 +62,10 @@ export function OverlayCard({ loadout }: Props) {
             key={i}
             style={{
               flex: 1,
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "center",
+              gap: 4,
               border: "1px solid var(--border)",
               borderRadius: "var(--radius)",
               padding: "6px 8px",
@@ -63,7 +74,8 @@ export function OverlayCard({ loadout }: Props) {
               color: "var(--text-secondary)"
             }}
           >
-            {t ? t.name : "—"}
+            {t && <ItemImage category="tools" id={t.id} image={t.image} alt={t.name} size={24} />}
+            <span>{t ? t.name : "—"}</span>
           </div>
         ))}
         {loadout.consumables.map((c, i) => (
@@ -71,6 +83,10 @@ export function OverlayCard({ loadout }: Props) {
             key={i}
             style={{
               flex: 1,
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "center",
+              gap: 4,
               border: "1px solid var(--border)",
               borderRadius: "var(--radius)",
               padding: "6px 8px",
@@ -79,23 +95,37 @@ export function OverlayCard({ loadout }: Props) {
               color: "var(--text-secondary)"
             }}
           >
-            {c ? c.name : "—"}
+            {c && (
+              <ItemImage category="consumables" id={c.id} image={c.image} alt={c.name} size={24} />
+            )}
+            <span>{c ? c.name : "—"}</span>
           </div>
         ))}
       </div>
 
-      <div style={{ display: "flex", gap: 5, marginBottom: 8 }}>
+      <div style={{ display: "flex", gap: 5, marginBottom: 8, flexWrap: "wrap" }}>
         {loadout.traits.map((t) => (
           <span
             key={t.id}
             style={{
+              display: "inline-flex",
+              alignItems: "center",
+              gap: 4,
               fontSize: 10,
               border: "1px solid var(--border)",
               borderRadius: 10,
-              padding: "2px 8px",
+              padding: "2px 8px 2px 2px",
               color: "var(--text-secondary)"
             }}
           >
+            <ItemImage
+              category="traits"
+              id={t.id}
+              image={t.image}
+              alt={t.name}
+              size={16}
+              style={{ borderRadius: "50%" }}
+            />
             {t.name}
           </span>
         ))}

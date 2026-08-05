@@ -1,9 +1,13 @@
+import type { Consumable, Tool } from "@/lib/types";
+import { ItemImage } from "@/components/ItemImage";
+
 interface Props {
   label: string;
-  name: string | null;
+  category: "tools" | "consumables";
+  item: Tool | Consumable | null;
 }
 
-export function ConsumableSlot({ label, name }: Props) {
+export function ConsumableSlot({ label, category, item }: Props) {
   return (
     <div
       style={{
@@ -17,7 +21,28 @@ export function ConsumableSlot({ label, name }: Props) {
       <div style={{ fontSize: 11, color: "var(--text-muted)", marginBottom: 4 }}>
         {label}
       </div>
-      <div style={{ fontSize: 13 }}>{name ?? "—"}</div>
+      <div style={{ display: "flex", justifyContent: "center", marginBottom: 6 }}>
+        {item ? (
+          <ItemImage
+            category={category}
+            id={item.id}
+            image={item.image}
+            alt={item.name}
+            size={36}
+          />
+        ) : (
+          <div
+            aria-hidden="true"
+            style={{
+              width: 36,
+              height: 36,
+              borderRadius: 6,
+              border: "1px dashed var(--border)"
+            }}
+          />
+        )}
+      </div>
+      <div style={{ fontSize: 13 }}>{item?.name ?? "—"}</div>
     </div>
   );
 }

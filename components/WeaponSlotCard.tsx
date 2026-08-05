@@ -1,6 +1,7 @@
 "use client";
 
 import type { Weapon, WeaponSize } from "@/lib/types";
+import { ItemImage } from "@/components/ItemImage";
 
 interface Props {
   size: WeaponSize;
@@ -31,6 +32,27 @@ export function WeaponSlotCard({
     >
       <div style={{ fontSize: 11, color: "var(--text-muted)", marginBottom: 6 }}>
         слот · {size}
+      </div>
+      <div style={{ display: "flex", justifyContent: "center", marginBottom: 8 }}>
+        {weapon ? (
+          <ItemImage
+            category="weapons"
+            id={weapon.id}
+            image={weapon.image}
+            alt={weapon.name}
+            size={56}
+          />
+        ) : (
+          <div
+            aria-hidden="true"
+            style={{
+              width: 56,
+              height: 56,
+              borderRadius: 6,
+              border: "1px dashed var(--border)"
+            }}
+          />
+        )}
       </div>
       <div style={{ fontSize: 14 }}>{weapon ? weapon.name : "—"}</div>
       <div style={{ display: "flex", justifyContent: "center", gap: 10, marginTop: 10 }}>

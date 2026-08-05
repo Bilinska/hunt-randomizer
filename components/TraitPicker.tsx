@@ -1,4 +1,5 @@
 import type { Trait } from "@/lib/types";
+import { ItemImage } from "@/components/ItemImage";
 
 interface Props {
   traits: Trait[];
@@ -30,12 +31,23 @@ export function TraitPicker({ traits, usedPoints, maxPoints }: Props) {
           <span
             key={trait.id}
             style={{
+              display: "inline-flex",
+              alignItems: "center",
+              gap: 6,
               fontSize: 11,
               border: "1px solid var(--border-strong)",
               borderRadius: 12,
-              padding: "3px 10px",
+              padding: "3px 10px 3px 3px",
             }}
           >
+            <ItemImage
+              category="traits"
+              id={trait.id}
+              image={trait.image}
+              alt={trait.name}
+              size={20}
+              style={{ borderRadius: "50%" }}
+            />
             {trait.name}
           </span>
         ))}

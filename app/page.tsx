@@ -141,10 +141,15 @@ export default function HomePage() {
 
       <div style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: 8, marginBottom: 12 }}>
         {loadout?.tools.map((t, i) => (
-          <ConsumableSlot key={`tool-${i}`} label="tool" name={t?.name ?? null} />
+          <ConsumableSlot key={`tool-${i}`} label="tool" category="tools" item={t ?? null} />
         ))}
         {loadout?.consumables.map((c, i) => (
-          <ConsumableSlot key={`cons-${i}`} label="consumable" name={c?.name ?? null} />
+          <ConsumableSlot
+            key={`cons-${i}`}
+            label="consumable"
+            category="consumables"
+            item={c ?? null}
+          />
         ))}
       </div>
 
