@@ -37,8 +37,26 @@ test.describe("Home page — randomizer", () => {
     await expect(firstReroll).toBeDisabled();
   });
 
-  test("копіює share-посилання в буфер обміну", async ({ page, context }) => {
-    await context.grantPermissions(["clipboard-read", "clipboard-write"]);
+  test("копіює share-посилання в буфер обміну", async ({ page, context, browserName }) => {
+    // grantPermissions(["clipboard-read", "clipboard-write"]) підтримується лише в Chromium,
+    // тому для крос-браузерної перевірки підміняємо navigator.clipboard.writeText
+    // і зчитуємо, що саме туди записав застосунок — це працює однаково в усіх браузерах.
+    if (browserName === "chromium") {
+      await context.grantPermissions(["clipboard-read", "clipboard-write"]);
+    }
+
+    await page.addInitScript(() => {
+      (window as any).__copiedText = null;
+      Object.defineProperty(navigator, "clipboard", {
+        value: {
+          writeText: (text: string) => {
+            (window as any).__copiedText = text;
+            return Promise.resolve();
+          },
+          readText: () => Promise.resolve((window as any).__copiedText ?? "")
+        }
+      });
+    });
 
     const home = new HomePage(page);
     await home.goto();
@@ -49,7 +67,7 @@ test.describe("Home page — randomizer", () => {
 
     await expect(page.getByRole("button", { name: "copied" })).toBeVisible();
 
-    const clipboardText = await page.evaluate(() => navigator.clipboard.readText());
+    const clipboardText = await page.evaluate(() => (window as any).__copiedText as string);
     expect(clipboardText).toContain(page.url().split("?")[0]);
   });
 });
