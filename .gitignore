@@ -1,6 +1,9 @@
-cat > .gitignore << 'EOF'
 node_modules/
 .next/
 .env
 .env.local
-EOF
+
+# Playwright
+/test-results/
+/playwright-report/
+/playwright/.cache/
