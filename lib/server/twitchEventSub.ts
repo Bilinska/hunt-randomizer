@@ -31,17 +31,29 @@ interface RedemptionEvent {
   reward: { id: string; title: string };
 }
 
-let socket: WebSocket | null = null;
-let sessionId: string | null = null;
-let reconnecting = false;
-let statusListeners: ((connected: boolean) => void)[] = [];
+// server.ts (tsx) and the Next-bundled API routes each get their own copy of
+// this module, so plain module-level variables would give /api/twitch/status a
+// socket that is always null while the real one lives in server.ts. Keep the
+// connection state on globalThis, same as overlayHub.
+interface EventSubState {
+  socket: WebSocket | null;
+  sessionId: string | null;
+  reconnecting: boolean;
+  statusListeners: ((connected: boolean) => void)[];
+}
+
+const g = globalThis as unknown as { __bayouEventSub?: EventSubState };
+if (!g.__bayouEventSub) {
+  g.__bayouEventSub = { socket: null, sessionId: null, reconnecting: false, statusListeners: [] };
+}
+const es = g.__bayouEventSub;
 
 export function onEventSubStatusChange(listener: (connected: boolean) => void) {
-  statusListeners.push(listener);
+  es.statusListeners.push(listener);
 }
 
 function notifyStatus(connected: boolean) {
-  for (const l of statusListeners) l(connected);
+  for (const l of es.statusListeners) l(connected);
 }
 
 function hasBadge(badges: Badge[] | undefined, setId: string): boolean {
@@ -66,7 +78,7 @@ async function subscribe(
       type,
       version,
       condition,
-      transport: { method: "websocket", session_id: sessionId }
+      transport: { method: "websocket", session_id: es.sessionId }
     })
   });
 
@@ -75,6 +87,9 @@ async function subscribe(
     console.error(
       `[twitch] failed to subscribe to ${type} for broadcaster ${broadcasterId}: ${res.status} ${await res.text()}`
     );
+  } else {
+    // eslint-disable-next-line no-console
+    console.log(`[twitch] subscribed to ${type}`);
   }
 }
 
@@ -111,6 +126,10 @@ async function handleChatMessage(event: ChatMessageEvent) {
   const settings = readSettings();
   const { isBase, isReroll } = parseCommand(event.message.text, settings.chatCommand);
   if (!isBase && !isReroll) return;
+  // eslint-disable-next-line no-console
+  console.log(
+    `[twitch] ${isReroll ? "reroll" : "command"} from ${event.chatter_user_login}`
+  );
 
   const isPrivileged =
     hasBadge(event.badges, "broadcaster") ||
@@ -119,11 +138,15 @@ async function handleChatMessage(event: ChatMessageEvent) {
 
   if (isReroll && !isPrivileged) return; // "reroll" alias is mods/subs/broadcaster only
 
-  roll({
+  const rolled = roll({
     source: isReroll ? "reroll" : "chat",
     roller: event.chatter_user_name || event.chatter_user_login,
     bypassCooldown: hasBadge(event.badges, "broadcaster") || hasBadge(event.badges, "moderator")
   });
+  if (!rolled) {
+    // eslint-disable-next-line no-console
+    console.log("[twitch] roll skipped (cooldown)");
+  }
 }
 
 function handleRedemption(event: RedemptionEvent) {
@@ -145,7 +168,9 @@ function handleMessage(raw: string) {
 
   switch (parsed.metadata.message_type) {
     case "session_welcome": {
-      sessionId = parsed.payload.session.id;
+      es.sessionId = parsed.payload.session.id;
+      // eslint-disable-next-line no-console
+      console.log("[twitch] eventsub session ready");
       void bootstrapSubscriptions();
       notifyStatus(true);
       break;
@@ -181,29 +206,34 @@ async function bootstrapSubscriptions() {
 }
 
 function connect(url: string) {
-  socket = new WebSocket(url);
+  const ws = new WebSocket(url);
+  es.socket = ws;
 
-  socket.on("message", (data) => handleMessage(data.toString()));
-  socket.on("close", () => {
+  ws.on("message", (data) => handleMessage(data.toString()));
+  ws.on("close", () => {
+    // A socket that was replaced (reconnect) or stopped on purpose has already
+    // been swapped out of `socket` — only an unexpected drop of the current one
+    // should notify and retry, otherwise every stop leaves an orphan behind.
+    if (es.socket !== ws) return;
     notifyStatus(false);
-    if (!reconnecting) {
+    if (!es.reconnecting) {
       // Unexpected drop (not a graceful session_reconnect) — retry with backoff.
       setTimeout(() => void startEventSub(), 5000);
     }
   });
-  socket.on("error", (err) => {
+  ws.on("error", (err) => {
     // eslint-disable-next-line no-console
     console.error("[twitch] eventsub socket error:", err);
   });
 }
 
 function reconnectTo(url: string) {
-  reconnecting = true;
-  const old = socket;
+  es.reconnecting = true;
+  const old = es.socket;
   connect(url);
   setTimeout(() => {
     old?.close();
-    reconnecting = false;
+    es.reconnecting = false;
   }, 2000);
 }
 
@@ -214,12 +244,12 @@ export async function startEventSub(): Promise<void> {
 }
 
 export function stopEventSub(): void {
-  sessionId = null;
-  socket?.close();
-  socket = null;
+  es.sessionId = null;
+  es.socket?.close();
+  es.socket = null;
   notifyStatus(false);
 }
 
 export function isEventSubConnected(): boolean {
-  return socket?.readyState === WebSocket.OPEN;
+  return es.socket?.readyState === WebSocket.OPEN;
 }
