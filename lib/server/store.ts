@@ -1,6 +1,6 @@
 import { mkdirSync, existsSync, readFileSync, writeFileSync } from "fs";
 import path from "path";
-import type { OverlaySettings } from "../types";
+import type { OverlaySettings, RollEvent } from "../types";
 
 // Overridable so the e2e suite can run against a scratch dir instead of the
 // streamer's real settings and Twitch token.
@@ -71,4 +71,31 @@ export function readSettings(): OverlaySettings {
 
 export function writeSettings(settings: OverlaySettings) {
   writeJson(SETTINGS_PATH, settings);
+}
+
+// Roll history is kept on disk so "previous loadout" survives a server restart.
+// rollNumber is stored with it: numbering must continue where it left off, or
+// a restarted server would reuse #1.. and clash with the saved rolls.
+const HISTORY_PATH = path.join(DATA_DIR, "roll-history.json");
+
+export interface RollHistory {
+  rollNumber: number;
+  history: RollEvent[];
+}
+
+export function readRollHistory(): RollHistory {
+  const saved = readJson<Partial<RollHistory>>(HISTORY_PATH);
+  const history = Array.isArray(saved?.history)
+    ? saved.history.filter(
+        (e): e is RollEvent =>
+          Boolean(e) && e.type === "roll" && typeof e.rollNumber === "number"
+      )
+    : [];
+  const highest = history.reduce((max, e) => Math.max(max, e.rollNumber), 0);
+  const savedNumber = typeof saved?.rollNumber === "number" ? saved.rollNumber : 0;
+  return { rollNumber: Math.max(savedNumber, highest), history };
+}
+
+export function writeRollHistory(data: RollHistory) {
+  writeJson(HISTORY_PATH, data);
 }

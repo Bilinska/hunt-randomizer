@@ -2,7 +2,7 @@ import { generateOverlayLoadout } from "../randomizer";
 import { effectiveWeaponCapacity, weaponWeight } from "../rules";
 import { hunterNameForRoll } from "../hunterNames";
 import type { OverlaySettings, RollEvent } from "../types";
-import { readSettings } from "./store";
+import { readSettings, readRollHistory, writeRollHistory } from "./store";
 import { broadcastOverlayEvent, getLastOverlayEvent } from "./overlayHub";
 
 // server.ts (tsx) and the Next-bundled API routes each get their own copy of
@@ -21,6 +21,7 @@ interface RollState {
 const HISTORY_LIMIT = 10;
 
 const g = globalThis as unknown as { __bayouRollState?: RollState };
+const firstLoad = !g.__bayouRollState;
 if (!g.__bayouRollState) {
   g.__bayouRollState = {
     lastRollAt: 0,
@@ -31,6 +32,27 @@ if (!g.__bayouRollState) {
   };
 }
 const state = g.__bayouRollState;
+
+/** Loads the saved history and roll counter from disk into memory. */
+export function restoreRollHistory() {
+  const saved = readRollHistory();
+  state.history = saved.history.slice(-HISTORY_LIMIT);
+  state.rollNumber = saved.rollNumber;
+}
+
+function persistRollHistory() {
+  try {
+    writeRollHistory({ rollNumber: state.rollNumber, history: state.history });
+  } catch (err) {
+    // A full disk or locked file must not stop the roll itself.
+    // eslint-disable-next-line no-console
+    console.warn("[rolls] could not save roll history:", err);
+  }
+}
+
+// Only the first copy of this module in the process reads the file; the others
+// share the same state through globalThis.
+if (firstLoad) restoreRollHistory();
 
 export type RollSource = RollEvent["source"];
 
@@ -82,6 +104,7 @@ export function roll(request: RollRequest): RollEvent | null {
 
   state.history.push(event);
   if (state.history.length > HISTORY_LIMIT) state.history.shift();
+  persistRollHistory();
 
   present(event, settings.hideDelaySec);
 
