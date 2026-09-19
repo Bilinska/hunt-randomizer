@@ -52,7 +52,7 @@ export function DossierCard({ event }: { event: RollEvent }) {
               textTransform: "uppercase"
             }}
           >
-            Random loadout
+            {event.replay ? "Previous loadout" : "Random loadout"}
           </span>
           <span style={{ fontSize: u(10), color: "var(--text-muted)" }}>
             #{event.rollNumber}

@@ -12,6 +12,7 @@ test.describe("Overlay setup page (Bayou Roulette control panel)", () => {
     await expect(page.getByText("Not connected")).toBeVisible();
     await expect(page.getByText("!loadout", { exact: true })).toBeVisible();
     await expect(page.getByText("!loadout reroll", { exact: true })).toBeVisible();
+    await expect(page.getByText("!loadout prev", { exact: true })).toBeVisible();
     await expect(page.getByRole("button", { name: "connect twitch" })).toBeVisible();
   });
 

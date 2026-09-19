@@ -87,6 +87,8 @@ export interface RollEvent {
   rollNumber: number;
   ts: number;
   hideDelaySec: number;
+  /** true when an earlier roll is shown again via the "previous" command */
+  replay?: boolean;
 }
 
 export interface IdleEvent {
