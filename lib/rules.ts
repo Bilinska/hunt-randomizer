@@ -1,6 +1,6 @@
-import type { Loadout, RandomizerSettings, Weapon, WeaponSize } from "./types";
+import type { Loadout, RandomizerSettings, Trait, Weapon, WeaponSize } from "./types";
 
-// Вага слота за системою розмірів зброї (патч 2.8). Уточнюйте після кожного патчу.
+// Вага слота за системою розмірів зброї (1896). Уточнюйте після кожного патчу.
 const SLOT_WEIGHT: Record<WeaponSize, number> = {
   small: 1,
   medium: 2,
@@ -9,6 +9,14 @@ const SLOT_WEIGHT: Record<WeaponSize, number> = {
 
 // Загальна місткість зброярні хантера в одиницях ваги.
 export const MAX_WEAPON_CAPACITY = 5;
+
+// Трейт Quartermaster відкриває додатковий слот (напр. large + large).
+export const QUARTERMASTER_BONUS_SLOTS = 1;
+
+export function effectiveWeaponCapacity(traits: Trait[]): number {
+  const hasQuartermaster = traits.some((t) => t.id === "quartermaster");
+  return MAX_WEAPON_CAPACITY + (hasQuartermaster ? QUARTERMASTER_BONUS_SLOTS : 0);
+}
 
 // Спрощена шкала очок трейтів. TODO: замінити на реальну прогресію за bloodline-рангом.
 export function getMaxTraitPoints(rank: number): number {

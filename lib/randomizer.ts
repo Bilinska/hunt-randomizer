@@ -8,9 +8,15 @@ import type {
   Consumable,
   Trait,
   Loadout,
+  OverlaySettings,
   RandomizerSettings
 } from "./types";
-import { getMaxTraitPoints, isLoadoutValid, weaponWeight } from "./rules";
+import {
+  effectiveWeaponCapacity,
+  getMaxTraitPoints,
+  isLoadoutValid,
+  weaponWeight
+} from "./rules";
 
 const WEAPONS = weaponsData as Weapon[];
 const TOOLS = toolsData as Tool[];
@@ -151,4 +157,97 @@ export function weaponSlotWeightUsed(loadout: Loadout): number {
     (sum, w) => sum + (w ? weaponWeight(w.size) : 0),
     0
   );
+}
+
+// --- Twitch overlay generator -------------------------------------------
+// Немає поняття "rank" — трейт-кап задається напряму слайдером у control
+// panel, а не виводиться зі шкали рангу.
+
+const OVERLAY_WEAPON_SLOTS = 2;
+
+function pickOverlayTraits(settings: OverlaySettings): Trait[] {
+  const pool = TRAITS.filter(
+    (t) => !settings.bannedItemIds.includes(t.id)
+  ).sort(() => Math.random() - 0.5);
+
+  const picked: Trait[] = [];
+  let usedPoints = 0;
+
+  for (const trait of pool) {
+    if (usedPoints + trait.points <= settings.traitPointCap) {
+      picked.push(trait);
+      usedPoints += trait.points;
+    }
+  }
+  return picked;
+}
+
+function pickOverlayWeapons(
+  capacity: number,
+  settings: OverlaySettings
+): (Weapon | null)[] {
+  const pool = WEAPONS.filter((w) => !settings.bannedItemIds.includes(w.id));
+
+  for (let attempt = 0; attempt < MAX_ATTEMPTS; attempt++) {
+    const shuffled = [...pool].sort(() => Math.random() - 0.5);
+    const picked: Weapon[] = [];
+    let usedWeight = 0;
+
+    for (const weapon of shuffled) {
+      if (picked.length >= OVERLAY_WEAPON_SLOTS) break;
+      const weight = weaponWeight(weapon.size);
+      if (usedWeight + weight <= capacity) {
+        picked.push(weapon);
+        usedWeight += weight;
+      }
+    }
+
+    if (picked.length === OVERLAY_WEAPON_SLOTS) {
+      return picked;
+    }
+  }
+
+  // Не змогли влучити в бюджет за MAX_ATTEMPTS спроб — повертаємо
+  // найдешевший single-weapon варіант, аби оверлей не лишався порожнім.
+  const cheapest = [...pool].sort(
+    (a, b) => weaponWeight(a.size) - weaponWeight(b.size)
+  )[0];
+  return [cheapest ?? null, null];
+}
+
+function pickOverlayItems<T extends { id: string }>(
+  pool: T[],
+  count: number,
+  settings: OverlaySettings
+): (T | null)[] {
+  const available = pool.filter((i) => !settings.bannedItemIds.includes(i.id));
+  const shuffled = [...available].sort(() => Math.random() - 0.5);
+  // Без повторів, поки вистачає унікальних предметів; якщо ні — розширюємо
+  // випадковим добором з повного пулу, аби не лишати слот порожнім.
+  const picked = shuffled.slice(0, count);
+  while (picked.length < count && available.length > 0) {
+    picked.push(pickRandom(available) as T);
+  }
+  return Array.from({ length: count }, (_, i) => picked[i] ?? null);
+}
+
+export function generateOverlayLoadout(settings: OverlaySettings): Loadout {
+  const traits = pickOverlayTraits(settings);
+  const capacity = effectiveWeaponCapacity(traits);
+  const weapons = pickOverlayWeapons(capacity, settings);
+  const tools = pickOverlayItems(TOOLS, settings.maxTools, settings);
+  const consumables = pickOverlayItems(
+    CONSUMABLES,
+    settings.maxConsumables,
+    settings
+  );
+
+  const totalPrice =
+    weapons.reduce((sum, w) => sum + (w ? w.price : 0), 0) +
+    tools.reduce((sum, t) => sum + (t ? t.price : 0), 0) +
+    consumables.reduce((sum, c) => sum + (c ? c.price : 0), 0);
+
+  const totalTraitPoints = traits.reduce((sum, t) => sum + t.points, 0);
+
+  return { weapons, tools, consumables, traits, totalPrice, totalTraitPoints };
 }

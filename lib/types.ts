@@ -58,3 +58,38 @@ export interface Loadout {
   totalPrice: number;
   totalTraitPoints: number;
 }
+
+export type OverlayLayout = "dossier" | "ticker" | "field";
+
+export interface OverlaySettings {
+  channel: string | null;
+  chatCommand: string;
+  cooldownSec: number;
+  hideDelaySec: number;
+  traitPointCap: number;
+  maxTools: number;
+  maxConsumables: number;
+  bannedItemIds: string[];
+  rewardId: string | null;
+  rewardTitle: string | null;
+  layout: OverlayLayout;
+}
+
+export interface RollEvent {
+  type: "roll";
+  loadout: Loadout;
+  weaponCapacity: number;
+  weaponWeightUsed: number;
+  hunterName: string;
+  roller: string;
+  source: "chat" | "reroll" | "channel-points" | "manual";
+  rollNumber: number;
+  ts: number;
+  hideDelaySec: number;
+}
+
+export interface IdleEvent {
+  type: "idle";
+}
+
+export type OverlayEvent = RollEvent | IdleEvent;

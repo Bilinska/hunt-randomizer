@@ -2,6 +2,8 @@ node_modules/
 .next/
 .env
 .env.local
+.data/
+tsconfig.tsbuildinfo
 
 # Playwright
 /test-results/

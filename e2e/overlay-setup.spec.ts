@@ -1,36 +1,34 @@
 import { test, expect } from "@playwright/test";
 
-test.describe("Overlay setup page", () => {
-    test("показує заголовок і поля налаштувань", async ({ page }) => {
+test.describe("Overlay setup page (Bayou Roulette control panel)", () => {
+  test("показує заголовок, статус підключення і command pills", async ({ page }) => {
     await page.goto("/overlay-setup");
 
     await expect(
-      page.getByRole("heading", { name: "налаштування OBS-оверлею" })
+      page.getByRole("heading", {
+        name: "Bayou Roulette — loadout randomizer for Hunt: Showdown 1896"
+      })
     ).toBeVisible();
-    await expect(page.getByText("price limit, hunt $")).toBeVisible();
-    await expect(page.getByText("rank", { exact: true })).toBeVisible();
-    await expect(page.getByText("quartermaster")).toBeVisible();
+    await expect(page.getByText("Not connected")).toBeVisible();
+    await expect(page.getByText("!loadout", { exact: true })).toBeVisible();
+    await expect(page.getByText("!loadout reroll", { exact: true })).toBeVisible();
+    await expect(page.getByRole("button", { name: "connect twitch" })).toBeVisible();
   });
 
-   test("оновлює URL оверлею при зміні price limit", async ({ page }) => {
+  test("показує три варіанти лейауту з посиланнями на OBS url", async ({ page }) => {
     await page.goto("/overlay-setup");
 
-    const priceInput = page.locator('input[type="number"]').first();
-    await priceInput.click();
-    await priceInput.fill(""); // очистити поточне значення
-    await priceInput.pressSequentially("150", { delay: 20 });
-    await priceInput.blur();
-
-    // переконуємось, що React дійсно підхопив нове значення інпута
-    await expect(priceInput).toHaveValue("150");
-
-    const urlBox = page.locator("text=/overlay\\?/");
-    await expect(urlBox).toContainText("price=150");
+    await expect(page.getByText("Dossier — left rail")).toBeVisible();
+    await expect(page.getByText("Ticker — lower third")).toBeVisible();
+    await expect(page.getByText("Field card — corner")).toBeVisible();
+    await expect(page.getByRole("button", { name: "copy OBS url" })).toHaveCount(3);
   });
 
-   test("копіює overlay URL в буфер обміну", async ({ page, context, browserName }) => {
-    // grantPermissions(["clipboard-read", "clipboard-write"]) підтримується лише в Chromium,
-    // тому для крос-браузерної перевірки підміняємо navigator.clipboard.writeText.
+  test("копіює OBS url потрібного лейауту в буфер обміну", async ({
+    page,
+    context,
+    browserName
+  }) => {
     if (browserName === "chromium") {
       await context.grantPermissions(["clipboard-read", "clipboard-write"]);
     }
@@ -50,14 +48,37 @@ test.describe("Overlay setup page", () => {
 
     await page.goto("/overlay-setup");
 
-    const copyButton = page.getByRole("button", {
-      name: "copy url for OBS browser source"
-    });
-    await copyButton.click();
-
-    await expect(page.getByRole("button", { name: "copied" })).toBeVisible();
+    const tickerCard = page.getByTestId("layout-card-ticker");
+    await tickerCard.getByRole("button", { name: "copy OBS url" }).click();
+    await expect(tickerCard.getByRole("button", { name: "copied" })).toBeVisible();
 
     const clipboardText = await page.evaluate(() => (window as any).__copiedText as string);
-    expect(clipboardText).toContain("/overlay?");
+    expect(clipboardText).toContain("/overlay/ticker");
+  });
+
+  test("зберігає налаштування через /api/settings", async ({ page }) => {
+    await page.goto("/overlay-setup");
+
+    const cooldownInput = page.locator("input[type='number']").first();
+    await cooldownInput.fill("42");
+    await cooldownInput.blur();
+
+    await expect
+      .poll(async () => {
+        const res = await page.request.get("/api/settings");
+        const body = await res.json();
+        return body.cooldownSec;
+      })
+      .toBe(42);
+
+    // повертаємо дефолт, щоб не впливати на інші тести цього прогону
+    await cooldownInput.fill("90");
+    await cooldownInput.blur();
+    await expect
+      .poll(async () => {
+        const res = await page.request.get("/api/settings");
+        return (await res.json()).cooldownSec;
+      })
+      .toBe(90);
   });
 });

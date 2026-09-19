@@ -5,10 +5,13 @@ const BASE_URL = process.env.BASE_URL ?? `http://localhost:${PORT}`;
 
 export default defineConfig({
   testDir: "./e2e",
-  fullyParallel: true,
+  // Overlay/Twitch tests share one live server process (in-memory cooldown,
+  // WS hub, settings.json) — running them in parallel workers races on that
+  // shared state, so this suite is intentionally serial.
+  fullyParallel: false,
+  workers: 1,
   forbidOnly: !!process.env.CI,
   retries: process.env.CI ? 2 : 0,
-  workers: process.env.CI ? 1 : undefined,
   reporter: [["html", { open: "never" }]],
 
   use: {
