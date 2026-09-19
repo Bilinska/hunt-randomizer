@@ -14,6 +14,7 @@ import type { RandomizerSettings } from "@/lib/types";
 const DEFAULT_SETTINGS: RandomizerSettings = {
   priceLimit: 300,
   rank: 50,
+  hunterLevel: 50,
   quartermaster: false,
   weaponSlots: ["big", "medium"],
   lockedSlots: {},
@@ -95,6 +96,17 @@ export default function HomePage() {
             style={{ width: "100%", marginTop: 4 }}
           />
         </label>
+        <label style={{ display: "block", fontSize: 11, color: "var(--text-muted)" }}>
+          hunter level
+          <input
+            type="number"
+            min={1}
+            max={50}
+            value={settings.hunterLevel}
+            onChange={(e) => updateSettings({ hunterLevel: Number(e.target.value) })}
+            style={{ width: "100%", marginTop: 4 }}
+          />
+        </label>
         <label
           style={{
             display: "flex",
@@ -157,7 +169,7 @@ export default function HomePage() {
         <TraitPicker
           traits={loadout?.traits ?? []}
           usedPoints={loadout?.totalTraitPoints ?? 0}
-          maxPoints={getMaxTraitPoints(settings.rank)}
+          maxPoints={getMaxTraitPoints(settings.hunterLevel)}
         />
       </div>
 

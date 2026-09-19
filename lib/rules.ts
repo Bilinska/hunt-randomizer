@@ -18,12 +18,15 @@ export function effectiveWeaponCapacity(traits: Trait[]): number {
   return MAX_WEAPON_CAPACITY + (hasQuartermaster ? QUARTERMASTER_BONUS_SLOTS : 0);
 }
 
-// Спрощена шкала очок трейтів. TODO: замінити на реальну прогресію за bloodline-рангом.
-export function getMaxTraitPoints(rank: number): number {
-  if (rank < 10) return 8;
-  if (rank < 25) return 14;
-  if (rank < 50) return 20;
-  return 26;
+// Хантер отримує 1 upgrade point за рівень, максимум 50 (джерело: bayouindex.com/traits).
+// Очки залежать від рівня хантера, а не від bloodline-рангу (ранг лише відкриває предмети).
+export const MAX_HUNTER_LEVEL = 50;
+
+// Гра не дозволяє тримати більше 15 трейтів одночасно, скільки б очок не було.
+export const MAX_TRAITS = 15;
+
+export function getMaxTraitPoints(hunterLevel: number): number {
+  return Math.min(Math.max(Math.floor(hunterLevel), 0), MAX_HUNTER_LEVEL);
 }
 
 export function getMaxScarceItems(): number {
@@ -44,9 +47,13 @@ export function validateWeaponSlots(weapons: (Weapon | null)[]): boolean {
 
 export function validateTraitPoints(
   totalTraitPoints: number,
-  rank: number
+  hunterLevel: number
 ): boolean {
-  return totalTraitPoints <= getMaxTraitPoints(rank);
+  return totalTraitPoints <= getMaxTraitPoints(hunterLevel);
+}
+
+export function validateTraitCount(traits: Trait[]): boolean {
+  return traits.length <= MAX_TRAITS;
 }
 
 export function validateScarceLimit(loadout: Loadout): boolean {
@@ -74,7 +81,8 @@ export function isLoadoutValid(
 ): boolean {
   return (
     validateWeaponSlots(loadout.weapons) &&
-    validateTraitPoints(loadout.totalTraitPoints, settings.rank) &&
+    validateTraitPoints(loadout.totalTraitPoints, settings.hunterLevel) &&
+    validateTraitCount(loadout.traits) &&
     validateScarceLimit(loadout) &&
     validatePriceLimit(loadout, settings)
   );

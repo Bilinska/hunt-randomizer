@@ -14,6 +14,7 @@ import type {
 import {
   effectiveWeaponCapacity,
   getMaxTraitPoints,
+  MAX_TRAITS,
   isLoadoutValid,
   weaponWeight
 } from "./rules";
@@ -65,11 +66,12 @@ function pickTraits(settings: RandomizerSettings): Trait[] {
     (t) => t.minRank <= settings.rank && !settings.bannedItemIds.includes(t.id)
   ).sort(() => Math.random() - 0.5);
 
-  const maxPoints = getMaxTraitPoints(settings.rank);
+  const maxPoints = getMaxTraitPoints(settings.hunterLevel);
   const picked: Trait[] = [];
   let usedPoints = 0;
 
   for (const trait of pool) {
+    if (picked.length >= MAX_TRAITS) break;
     if (usedPoints + trait.points <= maxPoints) {
       picked.push(trait);
       usedPoints += trait.points;
@@ -174,6 +176,7 @@ function pickOverlayTraits(settings: OverlaySettings): Trait[] {
   let usedPoints = 0;
 
   for (const trait of pool) {
+    if (picked.length >= MAX_TRAITS) break;
     if (usedPoints + trait.points <= settings.traitPointCap) {
       picked.push(trait);
       usedPoints += trait.points;
