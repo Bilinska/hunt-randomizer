@@ -2,7 +2,11 @@ import { mkdirSync, existsSync, readFileSync, writeFileSync } from "fs";
 import path from "path";
 import type { OverlaySettings } from "../types";
 
-const DATA_DIR = path.join(process.cwd(), ".data");
+// Overridable so the e2e suite can run against a scratch dir instead of the
+// streamer's real settings and Twitch token.
+const DATA_DIR = process.env.BAYOU_DATA_DIR
+  ? path.resolve(process.env.BAYOU_DATA_DIR)
+  : path.join(process.cwd(), ".data");
 const TOKEN_PATH = path.join(DATA_DIR, "twitch-token.json");
 const SETTINGS_PATH = path.join(DATA_DIR, "overlay-settings.json");
 
