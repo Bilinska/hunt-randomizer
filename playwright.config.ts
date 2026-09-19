@@ -1,6 +1,8 @@
 import { defineConfig, devices } from "@playwright/test";
 
-const PORT = process.env.PORT ?? "3000";
+// Dedicated port and data dir so the suite never touches a running dev server
+// (which may hold a live Twitch connection) or the streamer's real .data/.
+const PORT = process.env.E2E_PORT ?? "3100";
 const BASE_URL = process.env.BASE_URL ?? `http://localhost:${PORT}`;
 
 export default defineConfig({
@@ -30,6 +32,7 @@ export default defineConfig({
   webServer: {
     command: "npm run dev",
     url: BASE_URL,
+    env: { PORT, BAYOU_DATA_DIR: ".data-e2e" },
     reuseExistingServer: !process.env.CI,
     timeout: 120_000
   }
