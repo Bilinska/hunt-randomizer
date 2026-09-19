@@ -8,8 +8,11 @@
   --text-secondary: #a6a6b0;
   --text-muted: #6d6d78;
   --accent: #c48a3f;
+  --accent-cyan: #4fd2e8;
+  --accent-cyan-dim: rgba(79, 210, 232, 0.14);
   --danger: #b3453f;
   --success: #4a8f5c;
+  --overlay-bg: rgba(9, 11, 15, 0.88);
   --radius: 8px;
   --gap-sm: 8px;
   --gap-md: 12px;
