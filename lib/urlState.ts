@@ -1,3 +1,4 @@
+import { MAX_HUNTER_LEVEL } from "./rules";
 import type { Loadout, RandomizerSettings, WeaponSize } from "./types";
 
 // Кодуємо тільки НАЛАШТУВАННЯ (не результат) — при відкритті лінка
@@ -9,6 +10,7 @@ export function encodeSettingsToQuery(settings: RandomizerSettings): string {
     params.set("price", String(settings.priceLimit));
   }
   params.set("rank", String(settings.rank));
+  params.set("lvl", String(settings.hunterLevel));
   params.set("qm", settings.quartermaster ? "1" : "0");
   params.set("slots", settings.weaponSlots.join(","));
   params.set("tools", String(settings.maxTools));
@@ -47,6 +49,8 @@ export function decodeSettingsFromQuery(
   return {
     priceLimit: priceRaw ? Number(priceRaw) : null,
     rank: Number(searchParams.get("rank") ?? "1"),
+    // Старі лінки без lvl: беремо максимум, щоб трейти не зникли.
+    hunterLevel: Number(searchParams.get("lvl") ?? String(MAX_HUNTER_LEVEL)),
     quartermaster: searchParams.get("qm") === "1",
     weaponSlots: (slotsRaw
       ? slotsRaw.split(",")

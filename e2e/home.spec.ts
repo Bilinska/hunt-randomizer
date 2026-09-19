@@ -24,6 +24,27 @@ test.describe("Home page — randomizer", () => {
     await expect(home.rerollButtons.first()).toBeVisible();
   });
 
+  test("очки трейтів залежать від hunter level: 1 очко за рівень, максимум 50", async ({
+    page
+  }) => {
+    const home = new HomePage(page);
+    await home.goto();
+    const level = page.getByLabel("hunter level");
+
+    // fill може спрацювати до гідратації React (WebKit), тому очищаємо й повторюємо до збігу
+    await expect(async () => {
+      await level.fill("");
+      await level.fill("12");
+      await expect(page.getByText(/очки: \d+ \/ 12\)/)).toBeVisible({ timeout: 1000 });
+    }).toPass();
+
+    await expect(async () => {
+      await level.fill("");
+      await level.fill("80");
+      await expect(page.getByText(/очки: \d+ \/ 50\)/)).toBeVisible({ timeout: 1000 });
+    }).toPass();
+  });
+
   test("лок слота вимикає кнопку reroll для цього слота", async ({ page }) => {
     const home = new HomePage(page);
     await home.goto();

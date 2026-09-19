@@ -41,7 +41,8 @@ export type WeaponSlotConfig = WeaponSize[]; // напр. ["big", "medium"]
 
 export interface RandomizerSettings {
   priceLimit: number | null; // null = без ліміту
-  rank: number;
+  rank: number; // bloodline rank: відкриває предмети
+  hunterLevel: number; // 1-50: дає очки трейтів (1 очко за рівень)
   quartermaster: boolean; // впливає на ціну/доступність scarce-предметів
   weaponSlots: WeaponSlotConfig;
   lockedSlots: Record<string, string | null>; // slotKey -> itemId, якщо заблоковано

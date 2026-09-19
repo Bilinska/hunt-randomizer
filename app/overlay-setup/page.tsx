@@ -202,7 +202,7 @@ export default function OverlaySetupPage() {
           <input
             type="range"
             min={0}
-            max={20}
+            max={50}
             value={settings.traitPointCap}
             onChange={(e) => patchSettings({ traitPointCap: Number(e.target.value) })}
             style={{ width: "100%" }}
