@@ -1,5 +1,5 @@
 import { test, expect } from "@playwright/test";
-import { mkdtempSync } from "fs";
+import { mkdtempSync, writeFileSync } from "fs";
 import { tmpdir } from "os";
 import path from "path";
 
@@ -10,9 +10,11 @@ import path from "path";
 type Hub = typeof import("../lib/server/overlayHub");
 type EventSub = typeof import("../lib/server/twitchEventSub");
 type Store = typeof import("../lib/server/store");
+type RollEngine = typeof import("../lib/server/rollEngine");
 
 let hub: Hub;
 let eventSub: EventSub;
+let rollEngine: RollEngine;
 
 const REWARD_ID = "reward-1";
 
@@ -21,6 +23,7 @@ test.beforeAll(async () => {
   const store: Store = await import("../lib/server/store");
   hub = await import("../lib/server/overlayHub");
   eventSub = await import("../lib/server/twitchEventSub");
+  rollEngine = await import("../lib/server/rollEngine");
   store.writeSettings({
     ...store.readSettings(),
     cooldownSec: 90,
@@ -183,5 +186,40 @@ test.describe("chat commands", () => {
 
     chat("mod", "!loadout prev", ["moderator"]); // #2 is no longer kept
     expect(shown()).toMatchObject({ n: 3, replay: true });
+  });
+
+  test("history and roll numbering survive a restart", () => {
+    chat("mod", "!loadout", ["moderator"]);
+    chat("mod", "!loadout", ["moderator"]);
+
+    // Simulate a restart: memory is gone, only the file on disk remains.
+    const g = globalThis as unknown as {
+      __bayouRollState: { history: unknown[]; rollNumber: number; lastReplayAt: number };
+    };
+    g.__bayouRollState.history = [];
+    g.__bayouRollState.rollNumber = 0;
+    hub.broadcastOverlayEvent({ type: "idle" });
+    rollEngine.restoreRollHistory();
+
+    chat("alice", "!loadout prev"); // idle -> latest saved roll
+    expect(shown()).toMatchObject({ n: 2, replay: true, roller: "mod" });
+
+    chat("mod", "!loadout prev", ["moderator"]); // and one further back
+    expect(shown()).toMatchObject({ n: 1, replay: true });
+
+    // Numbering continues from the saved rolls instead of restarting at #1.
+    chat("mod", "!loadout", ["moderator"]);
+    expect(shown()).toMatchObject({ n: 3, replay: false });
+  });
+
+  test("a corrupt history file starts empty instead of failing", () => {
+    writeFileSync(path.join(process.env.BAYOU_DATA_DIR!, "roll-history.json"), "{ not json");
+    rollEngine.restoreRollHistory();
+
+    chat("mod", "!loadout prev", ["moderator"]);
+    expect(shown()).toEqual({ type: "idle" });
+
+    chat("mod", "!loadout", ["moderator"]);
+    expect(shown()).toMatchObject({ n: 1, replay: false });
   });
 });
