@@ -33,17 +33,22 @@ export default function OverlayLayoutPage() {
   const event = isDemo ? demoEvent : liveEvent.type === "roll" ? liveEvent : null;
 
   return (
-    <div
-      style={{
-        background: "transparent",
-        minHeight: "100vh",
-        display: "flex",
-        alignItems: layout === "ticker" ? "flex-end" : "flex-start",
-        justifyContent: layout === "ticker" ? "center" : "flex-start",
-        padding: 20
-      }}
-    >
-      {event && <Card event={event} />}
-    </div>
+    <>
+      {/* The global body background is opaque; an OBS browser source must be
+          see-through even if its Custom CSS was cleared. */}
+      <style>{"html, body { background: transparent !important; }"}</style>
+      <div
+        style={{
+          background: "transparent",
+          minHeight: "100vh",
+          display: "flex",
+          alignItems: layout === "ticker" ? "flex-end" : "flex-start",
+          justifyContent: layout === "ticker" ? "center" : "flex-start",
+          padding: 20
+        }}
+      >
+        {event && <Card event={event} />}
+      </div>
+    </>
   );
 }
