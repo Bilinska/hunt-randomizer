@@ -5,9 +5,21 @@ import type { OverlaySettings, RollEvent } from "../types";
 import { readSettings } from "./store";
 import { broadcastOverlayEvent } from "./overlayHub";
 
-let lastRollAt = 0;
-let rollNumber = 0;
-let hideTimer: ReturnType<typeof setTimeout> | null = null;
+// server.ts (tsx) and the Next-bundled API routes each get their own copy of
+// this module, so plain module-level variables would give chat rolls and manual
+// rolls separate counters, cooldowns and hide timers. Keep the state on
+// globalThis, same as overlayHub.
+interface RollState {
+  lastRollAt: number;
+  rollNumber: number;
+  hideTimer: ReturnType<typeof setTimeout> | null;
+}
+
+const g = globalThis as unknown as { __bayouRollState?: RollState };
+if (!g.__bayouRollState) {
+  g.__bayouRollState = { lastRollAt: 0, rollNumber: 0, hideTimer: null };
+}
+const state = g.__bayouRollState;
 
 export type RollSource = RollEvent["source"];
 
@@ -19,8 +31,8 @@ export interface RollRequest {
 }
 
 export function secondsSinceLastRoll(): number {
-  if (lastRollAt === 0) return Infinity;
-  return (Date.now() - lastRollAt) / 1000;
+  if (state.lastRollAt === 0) return Infinity;
+  return (Date.now() - state.lastRollAt) / 1000;
 }
 
 export function isOnCooldown(settings: OverlaySettings): boolean {
@@ -41,26 +53,26 @@ export function roll(request: RollRequest): RollEvent | null {
     0
   );
 
-  rollNumber += 1;
-  lastRollAt = Date.now();
+  state.rollNumber += 1;
+  state.lastRollAt = Date.now();
 
   const event: RollEvent = {
     type: "roll",
     loadout,
     weaponCapacity: capacity,
     weaponWeightUsed: weightUsed,
-    hunterName: hunterNameForRoll(rollNumber),
+    hunterName: hunterNameForRoll(state.rollNumber),
     roller: request.roller,
     source: request.source,
-    rollNumber,
-    ts: lastRollAt,
+    rollNumber: state.rollNumber,
+    ts: state.lastRollAt,
     hideDelaySec: settings.hideDelaySec
   };
 
   broadcastOverlayEvent(event);
 
-  if (hideTimer) clearTimeout(hideTimer);
-  hideTimer = setTimeout(() => {
+  if (state.hideTimer) clearTimeout(state.hideTimer);
+  state.hideTimer = setTimeout(() => {
     broadcastOverlayEvent({ type: "idle" });
   }, settings.hideDelaySec * 1000);
 
