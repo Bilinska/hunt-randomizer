@@ -153,14 +153,17 @@ function handleRedemption(event: RedemptionEvent) {
   const settings = readSettings();
   if (!settings.rewardId || event.reward.id !== settings.rewardId) return;
 
+  // The viewer has already spent their points, so a cooldown left over from
+  // someone's !loadout must not swallow the redemption.
   roll({
     source: "channel-points",
     roller: event.user_name || event.user_login,
-    bypassCooldown: false
+    bypassCooldown: true
   });
 }
 
-function handleMessage(raw: string) {
+// Exported so the event handling can be exercised without a live Twitch socket.
+export function handleMessage(raw: string) {
   const parsed = JSON.parse(raw) as {
     metadata: { message_type: string };
     payload: any;
