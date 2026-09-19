@@ -40,11 +40,13 @@ export default function OverlayLayoutPage() {
       <div
         style={{
           background: "transparent",
+          boxSizing: "border-box",
           minHeight: "100vh",
           display: "flex",
           alignItems: layout === "ticker" ? "flex-end" : "flex-start",
           justifyContent: layout === "ticker" ? "center" : "flex-start",
-          padding: 20
+          // The dossier fills the full height itself, so no outer gutter.
+          padding: layout === "dossier" ? 0 : 20
         }}
       >
         {event && <Card event={event} />}
