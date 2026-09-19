@@ -1,5 +1,6 @@
 import type { Weapon, WeaponSize } from "@/lib/types";
 import { weaponWeight } from "@/lib/rules";
+import { u } from "./scale";
 
 const SIZE_LABEL: Record<WeaponSize, string> = {
   small: "Small",
@@ -20,14 +21,18 @@ export function WeaponRow({ label, weapon, compact }: Props) {
         display: "flex",
         alignItems: "baseline",
         justifyContent: "space-between",
-        gap: 10
+        // Full-size card: let the size/slots detail drop under a long name
+        // instead of truncating the name.
+        flexWrap: compact ? "nowrap" : "wrap",
+        columnGap: u(10),
+        rowGap: u(2)
       }}
     >
-      <div style={{ display: "flex", alignItems: "baseline", gap: 8, minWidth: 0 }}>
+      <div style={{ display: "flex", alignItems: "baseline", gap: u(8), minWidth: 0 }}>
         {!compact && (
           <span
             style={{
-              fontSize: 9,
+              fontSize: u(9),
               letterSpacing: "0.08em",
               color: "var(--text-muted)",
               textTransform: "uppercase",
@@ -39,7 +44,7 @@ export function WeaponRow({ label, weapon, compact }: Props) {
         )}
         <span
           style={{
-            fontSize: compact ? 13 : 15,
+            fontSize: compact ? u(13) : u(15),
             fontWeight: 600,
             color: "var(--text-primary)",
             overflow: "hidden",
@@ -53,7 +58,7 @@ export function WeaponRow({ label, weapon, compact }: Props) {
       {weapon && (
         <span
           style={{
-            fontSize: 10,
+            fontSize: u(10),
             color: "var(--text-muted)",
             whiteSpace: "nowrap",
             flexShrink: 0

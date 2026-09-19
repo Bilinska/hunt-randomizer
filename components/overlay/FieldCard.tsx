@@ -28,7 +28,7 @@ export function FieldCard({ event }: { event: RollEvent }) {
         }}
       >
         <span style={{ fontSize: 11, fontWeight: 700, color: "var(--accent-cyan)" }}>
-          {event.source === "channel-points" ? "points" : "!loadout"}
+          {event.replay ? "previous" : event.source === "channel-points" ? "points" : "!loadout"}
         </span>
         <span style={{ fontSize: 10, color: "var(--text-muted)" }}>@{event.roller}</span>
       </div>

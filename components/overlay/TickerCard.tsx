@@ -27,7 +27,7 @@ export function TickerCard({ event }: { event: RollEvent }) {
       }}
     >
       <div>
-        <div style={labelStyle}>Rolled loadout</div>
+        <div style={labelStyle}>{event.replay ? "Previous loadout" : "Rolled loadout"}</div>
         <div style={{ fontSize: 16, fontWeight: 700, color: "var(--text-primary)" }}>
           {event.hunterName}
         </div>

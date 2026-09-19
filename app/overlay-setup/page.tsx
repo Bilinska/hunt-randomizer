@@ -165,6 +165,7 @@ export default function OverlaySetupPage() {
 
         <Pill>{settings.chatCommand}</Pill>
         <Pill>{settings.chatCommand} reroll</Pill>
+        <Pill>{settings.chatCommand} prev</Pill>
         <Pill>cooldown {settings.cooldownSec}s</Pill>
 
         <div style={{ marginLeft: "auto", display: "flex", gap: 8 }}>
@@ -317,7 +318,8 @@ export default function OverlaySetupPage() {
         </InfoCard>
         <InfoCard title="Chat" heading="Who can pull the lever">
           {settings.chatCommand} for anyone past the cooldown, {settings.chatCommand} reroll for
-          mods and subs. Channel-point redemptions map to the same handler.
+          mods and subs. {settings.chatCommand} prev shows the previous loadout again (repeat to
+          go further back, up to 10). Channel-point redemptions map to the same handler.
         </InfoCard>
         <InfoCard title="Rules" heading="1896 legality">
           Weapon slots cost 1/2/3 against a 5-slot budget; a rolled Quartermaster buys a sixth

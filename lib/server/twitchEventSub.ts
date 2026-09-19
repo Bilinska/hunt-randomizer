@@ -9,7 +9,7 @@
 import WebSocket from "ws";
 import { getValidToken, currentClientId } from "./twitchAuth";
 import { readSettings } from "./store";
-import { roll } from "./rollEngine";
+import { roll, replayPrevious } from "./rollEngine";
 
 const EVENTSUB_WS_URL = "wss://eventsub.wss.twitch.tv/ws";
 const EVENTSUB_SUBSCRIPTIONS_URL = "https://api.twitch.tv/helix/eventsub/subscriptions";
@@ -113,35 +113,47 @@ async function subscribeAll(accessToken: string, userId: string) {
 function parseCommand(
   text: string,
   chatCommand: string
-): { isBase: boolean; isReroll: boolean } {
+): { isBase: boolean; isReroll: boolean; isPrev: boolean } {
   const normalized = text.trim().toLowerCase();
   const base = chatCommand.trim().toLowerCase();
   return {
     isBase: normalized === base,
-    isReroll: normalized === `${base} reroll`
+    isReroll: normalized === `${base} reroll`,
+    isPrev: normalized === `${base} prev`
   };
 }
 
 async function handleChatMessage(event: ChatMessageEvent) {
   const settings = readSettings();
-  const { isBase, isReroll } = parseCommand(event.message.text, settings.chatCommand);
-  if (!isBase && !isReroll) return;
+  const { isBase, isReroll, isPrev } = parseCommand(event.message.text, settings.chatCommand);
+  if (!isBase && !isReroll && !isPrev) return;
   // eslint-disable-next-line no-console
   console.log(
-    `[twitch] ${isReroll ? "reroll" : "command"} from ${event.chatter_user_login}`
+    `[twitch] ${isPrev ? "prev" : isReroll ? "reroll" : "command"} from ${event.chatter_user_login}`
   );
 
+  const isBroadcasterOrMod =
+    hasBadge(event.badges, "broadcaster") || hasBadge(event.badges, "moderator");
+
+  if (isPrev) {
+    // Anyone may look back; the replay has its own cooldown (mods/broadcaster skip it).
+    const shown = replayPrevious({ bypassCooldown: isBroadcasterOrMod });
+    if (!shown) {
+      // eslint-disable-next-line no-console
+      console.log("[twitch] prev skipped (cooldown or no earlier loadout)");
+    }
+    return;
+  }
+
   const isPrivileged =
-    hasBadge(event.badges, "broadcaster") ||
-    hasBadge(event.badges, "moderator") ||
-    (isReroll && hasBadge(event.badges, "subscriber"));
+    isBroadcasterOrMod || (isReroll && hasBadge(event.badges, "subscriber"));
 
   if (isReroll && !isPrivileged) return; // "reroll" alias is mods/subs/broadcaster only
 
   const rolled = roll({
     source: isReroll ? "reroll" : "chat",
     roller: event.chatter_user_name || event.chatter_user_login,
-    bypassCooldown: hasBadge(event.badges, "broadcaster") || hasBadge(event.badges, "moderator")
+    bypassCooldown: isBroadcasterOrMod
   });
   if (!rolled) {
     // eslint-disable-next-line no-console
@@ -153,14 +165,17 @@ function handleRedemption(event: RedemptionEvent) {
   const settings = readSettings();
   if (!settings.rewardId || event.reward.id !== settings.rewardId) return;
 
+  // The viewer has already spent their points, so a cooldown left over from
+  // someone's !loadout must not swallow the redemption.
   roll({
     source: "channel-points",
     roller: event.user_name || event.user_login,
-    bypassCooldown: false
+    bypassCooldown: true
   });
 }
 
-function handleMessage(raw: string) {
+// Exported so the event handling can be exercised without a live Twitch socket.
+export function handleMessage(raw: string) {
   const parsed = JSON.parse(raw) as {
     metadata: { message_type: string };
     payload: any;

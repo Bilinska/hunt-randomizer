@@ -9,6 +9,18 @@ test.describe("Overlay pages (OBS browser source)", () => {
     await expect(page.getByText("Traits")).toBeVisible();
   });
 
+  for (const layout of ["dossier", "ticker", "field"]) {
+    test(`${layout}: фон сторінки прозорий, щоб OBS не закривав гру`, async ({ page }) => {
+      await page.goto(`/overlay/${layout}`);
+      const bg = await page.evaluate(() => ({
+        html: getComputedStyle(document.documentElement).backgroundColor,
+        body: getComputedStyle(document.body).backgroundColor
+      }));
+      expect(bg.html).toBe("rgba(0, 0, 0, 0)");
+      expect(bg.body).toBe("rgba(0, 0, 0, 0)");
+    });
+  }
+
   test("ticker ?demo=1 показує зразковий лоадаут", async ({ page }) => {
     await page.goto("/overlay/ticker?demo=1");
     await expect(page.getByText("Rolled loadout")).toBeVisible();
